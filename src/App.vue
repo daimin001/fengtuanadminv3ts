@@ -8,4 +8,5 @@ import { RouterView } from "vue-router";
 
 <style lang="scss">
 @import "styles/reset";
+@import "styles/element";
 </style>

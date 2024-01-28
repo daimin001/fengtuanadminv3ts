@@ -1,0 +1,109 @@
+<template>
+  <QfBox>
+    <!-- 筛选 -->
+    <template #filter>
+      <el-form ref="formRules" :model="formData" label-width="80px" size="large" :inline="true">
+        <el-form-item label="角色名" prop="role_name">
+          <el-input v-model="formData.role_name"></el-input>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" @click="handleSubmit"><span class="iconfont icon-sousuo"></span>搜索</el-button>
+          <el-button type="default" @click="handleReset">重置</el-button>
+        </el-form-item>
+      </el-form>
+    </template>
+    <!-- 内容 -->
+    <!-- 按钮控件 -->
+    <el-row>
+      <el-button type="danger"><span class="iconfont icon-shanchu"></span>批量删除</el-button>
+      <el-button type="primary" @click="$router.push('/role/create')"><span class="iconfont icon-jiahao"></span>添加
+      </el-button>
+    </el-row>
+    <!-- 表格 -->
+    <el-table class="qfTable" :data="tableData.data">
+      <el-table-column label="复选" type="selection" width="55" fixed="left" />
+      <el-table-column label="编号" prop="id" align="center" sortable></el-table-column>
+      <el-table-column label="角色名称" prop="role_name" align="center"></el-table-column>
+      <el-table-column label="角色描述" prop="role_desc" align="center"></el-table-column>
+      <el-table-column label="创建于" prop="created_at" align="center" width="180"></el-table-column>
+      <el-table-column label="更新于" prop="updated_at" align="center" width="180"></el-table-column>
+      <el-table-column label="操作" align="center" fixed="right" width="240">
+        <el-button type="primary" size="small">
+          <span class="iconfont icon-bianji"></span>
+        </el-button>
+        <el-button type="success" size="small">分配权限</el-button>
+        <el-button type="danger" size="small"><span class="iconfont icon-shanchu"></span>删除
+        </el-button>
+      </el-table-column>
+    </el-table>
+    <!-- 分页 -->
+    <el-pagination
+      v-model:current-page="formData.pagenum"
+      v-model:page-size="formData.pagesize"
+      :page-sizes="[10, 20, 30, 40]"
+      :background="true"
+      layout="total, sizes, prev, pager, next, jumper"
+      :total="400"
+      @size-change="handleSizeChange"
+      @current-change="handleCurrentChange"
+    />
+  </QfBox>
+</template>
+
+<script setup lang="ts">
+import QfBox from '@/components/qfBox/index.vue'
+import { reactive, ref } from 'vue'
+import type { GetRolePayloadType, GetRoleResType } from '@/api/role/types'
+import mock from '@/mock/role'
+import type { FormInstance, FormRules } from 'element-plus'
+
+// 表单数据
+const formData = reactive<GetRolePayloadType>({
+  pagenum: 1,
+  pagesize: 40,
+  role_name: ''
+})
+
+// 表单校验规则
+const formRules = reactive<FormRules>({
+  role_name: [
+    { required: true, message: '请输入角色名', trigger: 'blur' },
+    { min: 2, max: 10, message: '长度在 2 到 10 个字符', trigger: 'blur' }
+  ]
+})
+
+// 表单提交
+const formRef = ref<FormInstance>()
+const handleSubmit = () => {
+  formRef.value?.validate((isSuccess) => {
+    if (isSuccess) {
+      console.log('搜索：', formData)
+    }
+  })
+}
+const handleReset = () => {
+  formRef.value!.resetFields()
+}
+
+// 表格数据
+const tableData = reactive<GetRoleResType>({
+  data: mock.data,
+  total: mock.total
+})
+
+
+// 分页的事件
+const handleSizeChange = (val: number) => {
+  console.log(`${val} items per page`)
+}
+const handleCurrentChange = (val: number) => {
+  console.log(`current page: ${val}`)
+}
+
+console.log('mock', mock.data)
+
+</script>
+
+<style scoped lang="scss">
+
+</style>

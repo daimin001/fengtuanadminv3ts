@@ -103,11 +103,14 @@ aside {
     :deep(.el-menu-item:hover) {
       background-color: rgba(0, 0, 0, 0.2);
     }
+    :deep(.el-sub-menu__title) {
+      font-size: 16px;
+    }
 
     .iconfont {
       font-size: 16px;
       margin-top: -2px;
-      margin-right: 5px;
+      margin-right: 12px;
     }
   }
 }

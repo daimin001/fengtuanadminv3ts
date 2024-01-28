@@ -1,0 +1,34 @@
+//重写elementUI
+.el-menu {
+  background-color: $qf-bg-color !important;
+}
+
+// 卡片样式
+.el-card__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+// 重写表格样式
+.el-table {
+  // 间距
+  margin: 15px 0;
+  flex:1;
+  // 表头
+  .el-table__header th {
+    font-weight: bold;
+    color: #252525;
+    background: #fafafa;
+    background: var(--el-fill-color-light)!important;
+  }
+}
+
+// 重写分页样式
+.el-pagination {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  overflow-x: scroll;
+  min-height: 32px;
+}

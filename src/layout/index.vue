@@ -11,7 +11,7 @@
       </header>
       <!-- 内容 -->
       <section class="content">
-        <h1 v-for="num in 30" :key="num">你好</h1>
+        <router-view />
       </section>
       <!-- 底部 -->
       <footer>2023 © QFADMIN 前端扛把子@千锋教育 🔥 👊🏻👊🏻👊🏻</footer>
@@ -52,8 +52,8 @@ import Tabs from './components/tabs.vue'
       width: 96%;
       height: calc(100% - 170px); // header 90 + self 40 + footer 40
       margin: 20px auto;
-      background-color: #fff;
       overflow-y: scroll;
+      overflow-x: hidden;
     }
 
     // 底部

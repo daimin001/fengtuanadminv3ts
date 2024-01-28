@@ -4,7 +4,7 @@
     <section class="left">
       <div class="btn" @click="isLeftIcon = !isLeftIcon">
         <el-icon>
-          <Fold v-show="isLeftIcon"/>
+          <Fold v-show="isLeftIcon" />
           <Expand v-show="!isLeftIcon" />
         </el-icon>
       </div>
@@ -113,6 +113,12 @@ const { isLeftIcon } = storeToRefs(asideStore)
       margin-left: 5px;
     }
 
+  }
+}
+
+@media screen and (max-width: 990px) {
+  .nickname, .el-breadcrumb {
+    display: none;
   }
 }
 </style>

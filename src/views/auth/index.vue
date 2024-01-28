@@ -1,0 +1,58 @@
+<template>
+  <QfBox>
+    <el-table class="qfTable" :data="tableData" :border="true" row-key="auth_id">
+      <el-table-column label="权限名称" prop="auth_name" align="left" width="200"></el-table-column>
+      <el-table-column label="种类" prop="type" align="center">
+        <template #default="scoped">
+          <!--          {{ scoped.row.type}}-->
+          <el-tag v-if="scoped.row.type === 1">菜单</el-tag>
+          <el-tag v-else type="success">按钮</el-tag>
+        </template>
+      </el-table-column>
+      <el-table-column label="路由" prop="path" align="center">
+        <template #default="scoped">
+          <el-tag>{{ scoped.row.path }}</el-tag>
+        </template>
+      </el-table-column>
+      <el-table-column label="组件缓存" prop="keep_alive" align="center">
+        <template #default="scoped">
+          <el-switch
+            v-model="scoped.row.keep_alive"
+            :active-value="0"
+            :inactive-value="1"
+            inline-prompt
+            style="--el-switch-on-color: #13ce66; --el-switch-off-color: #ff4949"
+            active-text="未缓存"
+            inactive-text="已缓存"
+          />
+        </template>
+      </el-table-column>
+      <el-table-column label="组件路径" prop="component" align="center">
+        <template #default="scoped">
+          <el-tag>{{ scoped.row.component }}</el-tag>
+        </template>
+      </el-table-column>
+      <el-table-column label="操作" align="center" fixed="right" width="240">
+        <el-button type="primary" size="small">
+          <span class="iconfont icon-bianji"></span>
+        </el-button>
+        <el-button type="danger" size="small">
+          <span class="iconfont icon-shanchu"></span>删除
+        </el-button>
+      </el-table-column>
+    </el-table>
+  </QfBox>
+</template>
+
+<script lang="ts" setup>
+import QfBox from '@/components/QfBox/index.vue'
+import mock from '@/mock/menu/index'
+import { ref } from 'vue'
+
+// 表格数据
+const tableData = ref(mock)
+</script>
+
+<style lang="scss" scoped>
+
+</style>
