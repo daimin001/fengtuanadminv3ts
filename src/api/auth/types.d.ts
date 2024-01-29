@@ -6,3 +6,7 @@ export interface PostAuthPayloadType {
   keep_alive?: number,//是否缓存：0-否，1-是
   pid: number,//父级id
 }
+
+export interface PutAuthPayloadType extends PostAuthPayloadType {
+  auth_id: number,
+}

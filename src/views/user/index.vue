@@ -1,5 +1,9 @@
 <template>
   <QfBox>
+    <!--逻辑组件-->
+    <UserEdit ref="UserEditRef"/>
+    <AssignRole ref="assignRoleRef"/>
+
     <!-- 筛选 -->
     <template #filter>
       <el-form ref="formRef" :rules="formRules" :model="formData" label-width="80px" size="large" :inline="true">
@@ -83,13 +87,15 @@
       <el-table-column align="center" label="创建于" prop="created_at"></el-table-column>
       <el-table-column align="center" label="更新于" prop="updated_at"></el-table-column>
       <el-table-column align="center" label="操作" fixed="right" width="240">
-        <el-button type="primary" size="small">
-          <span class="iconfont icon-bianji"></span>
-        </el-button>
-        <el-button type="success" size="small">分配角色</el-button>
-        <el-button type="danger" size="small">
-          <span class="iconfont icon-shanchu"></span>删除
-        </el-button>
+        <template #default="scoped">
+          <el-button type="primary" size="small" @click="handleEdit(scoped.row)">
+            <span class="iconfont icon-bianji"></span>
+          </el-button>
+          <el-button type="success" size="small" @click="handleAssign(scoped.row)">分配角色</el-button>
+          <el-button type="danger" size="small">
+            <span class="iconfont icon-shanchu"></span>删除
+          </el-button>
+        </template>
       </el-table-column>
 
     </el-table>
@@ -110,11 +116,13 @@
 <script lang="ts" setup>
 import QfBox from '@/components/QfBox/index.vue'
 import { ArrowDown, ArrowUp } from '@element-plus/icons-vue'
-import { GetUserPayloadType, GetUserResType } from '@/api/user/types'
+import type { GetUserPayloadType, GetUserResType } from '@/api/user/types'
 import { reactive, ref } from 'vue'
+import {checkPassword } from '@/utils/validate'
 import type { FormInstance, FormRules } from 'element-plus'
 import mock from '@/mock/user'
-
+import UserEdit from './components/userEdit.vue'
+import AssignRole from './components/assignRole.vue'
 
 // 收起&展开
 const isCollapse = ref<boolean>(true)
@@ -142,7 +150,11 @@ const formRules = reactive<FormRules>({
   ],
   role_name: [
     { min: 3, max: 10, message: '长度在 3 到 10 个字符', trigger: 'blur' }
-  ]
+  ],
+  password: [
+    { validator: checkPassword, trigger: 'blur' },
+    { min: 6, max: 20, message: '长度在 6 到 20 个字符', trigger: 'blur' }
+  ],
 })
 
 // 表单提交
@@ -170,6 +182,31 @@ const handleSizeChange = (val: number) => {
 }
 const handleCurrentChange = (val: number) => {
   console.log(`current page: ${val}`)
+}
+
+// 接受编辑用户信息子组件传递的数据
+const UserEditRef = ref()
+
+// 定义点击弹框回显数据的方法
+const handleEdit = (row: any) => {
+  console.log(row)
+  // 1.显示弹框
+  UserEditRef.value!.dialogVisible = true
+  // 2.将数据传递给子组件
+  UserEditRef.value!.formData.username = row.uname
+  UserEditRef.value!.formData.mobile = row.mobile
+  UserEditRef.value!.formData.avatar = row.avatar
+}
+
+// 接受分配权限子组件传递的数据
+const assignRoleRef = ref()
+
+const handleAssign = (row: any) => {
+  assignRoleRef.value!.dialogVisible = true
+  assignRoleRef.value!.formData.uname = row.uname
+  assignRoleRef.value!.formData.role_name = row.role_name
+  assignRoleRef.value!.formData.user_id = row.id
+  assignRoleRef.value!.formData.role_id = row.role_id
 }
 
 </script>

@@ -1,5 +1,9 @@
 <template>
   <QfBox>
+    <!--逻辑组件-->
+    <RoleEdit ref="roleEditRef" />
+    <AssignAuth ref="assignAuthRef" />
+
     <!-- 筛选 -->
     <template #filter>
       <el-form ref="formRules" :model="formData" label-width="80px" size="large" :inline="true">
@@ -28,12 +32,16 @@
       <el-table-column label="创建于" prop="created_at" align="center" width="180"></el-table-column>
       <el-table-column label="更新于" prop="updated_at" align="center" width="180"></el-table-column>
       <el-table-column label="操作" align="center" fixed="right" width="240">
-        <el-button type="primary" size="small">
-          <span class="iconfont icon-bianji"></span>
-        </el-button>
-        <el-button type="success" size="small">分配权限</el-button>
-        <el-button type="danger" size="small"><span class="iconfont icon-shanchu"></span>删除
-        </el-button>
+        <template #default="scoped">
+          <el-button type="primary" size="small" @click="handleEdit(scoped.row)">
+            <span class="iconfont icon-bianji"></span>
+          </el-button>
+          <el-button type="success" size="small" @click="handleAssignAuth(scoped.row)">分配权限</el-button>
+          <el-button type="danger" size="small">
+            <span class="iconfont icon-shanchu"></span>
+            删除
+          </el-button>
+        </template>
       </el-table-column>
     </el-table>
     <!-- 分页 -->
@@ -51,11 +59,13 @@
 </template>
 
 <script setup lang="ts">
-import QfBox from '@/components/qfBox/index.vue'
+import QfBox from '@/components/QfBox/index.vue'
 import { reactive, ref } from 'vue'
 import type { GetRolePayloadType, GetRoleResType } from '@/api/role/types'
 import mock from '@/mock/role'
 import type { FormInstance, FormRules } from 'element-plus'
+import RoleEdit from './components/roleEdit.vue'
+import AssignAuth from './components/assignAuth.vue'
 
 // 表单数据
 const formData = reactive<GetRolePayloadType>({
@@ -100,7 +110,26 @@ const handleCurrentChange = (val: number) => {
   console.log(`current page: ${val}`)
 }
 
-console.log('mock', mock.data)
+// 接受子组件暴露的方法
+const roleEditRef = ref<InstanceType<typeof RoleEdit>>()
+const handleEdit = (row: any) => {
+  // console.log(roleEditRef.value)
+  roleEditRef.value!.dialogVisible = true
+  roleEditRef.value!.formData.role_id = row.id
+  roleEditRef.value!.formData.role_name = row.role_name
+  roleEditRef.value!.formData.role_desc = row.role_desc
+}
+
+// 定义角色分配权限的逻辑
+const assignAuthRef = ref()
+
+// 点击分配权限按钮
+const handleAssignAuth = (row: any) => {
+  assignAuthRef.value.status = true
+}
+
+
+// console.log('mock', mock.data)
 
 </script>
 

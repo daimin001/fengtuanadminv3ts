@@ -27,3 +27,16 @@ export interface GetRoleResType {
   data: Role[]
   total: number
 }
+
+// 编辑角色api的请求参数类型
+export interface PutRolePayloadType extends PostRolePayloadType {
+  role_id: number | string
+}
+
+// 给角色分配权限api的请求参数类型
+export interface PutAssignAuthPayloadType {
+  role_name: string,
+  role_id: number,
+  auth_ids: string,
+  auth_ids_son: string,
+}

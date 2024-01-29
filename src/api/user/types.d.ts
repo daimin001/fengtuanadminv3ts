@@ -41,3 +41,16 @@ export interface GetUserResType {
   data: User[]
   total: number
 }
+
+// 用户编辑回显
+export interface PutUserPayloadType extends PostUserPayloadType {
+  user_id: number
+}
+
+// 分配角色
+export interface PutAssignRolePayloadType {
+  uname?: string,
+  role_name?: string,
+  user_id: number,
+  role_id: number
+}

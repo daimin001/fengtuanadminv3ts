@@ -12,3 +12,18 @@ if (!value) {
     }
   }, 1000);
 }
+
+// 验证密码规则
+export const checkPassword = (rule: any, value: string, callback: Function) => {
+  if (!value) {
+    return callback();
+  }
+  setTimeout(() => {
+    const reg = /^[a-zA-Z0-9_-]{6,16}$/;
+    if (!reg.test(value)) {
+      callback(new Error('密码必须是6-16位数字和字母组合'));
+    } else {
+      callback();
+    }
+  }, 1000);
+}
