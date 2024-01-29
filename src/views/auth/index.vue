@@ -14,7 +14,7 @@
       </el-table-column>
       <el-table-column label="路由" prop="path" align="center">
         <template #default="scoped">
-          <el-tag>{{ scoped.row.path }}</el-tag>
+          <el-tag type="info" v-if="scoped.row.path">{{ scoped.row.path }}</el-tag>
         </template>
       </el-table-column>
       <el-table-column label="组件缓存" prop="keep_alive" align="center">
@@ -27,12 +27,13 @@
             style="--el-switch-on-color: #13ce66; --el-switch-off-color: #ff4949"
             active-text="未缓存"
             inactive-text="已缓存"
+            disabled
           />
         </template>
       </el-table-column>
       <el-table-column label="组件路径" prop="component" align="center">
         <template #default="scoped">
-          <el-tag>{{ scoped.row.component }}</el-tag>
+          <el-tag type="info" v-if="scoped.row.component">{{ scoped.row.component }}</el-tag>
         </template>
       </el-table-column>
       <el-table-column label="操作" align="center" fixed="right" width="240">

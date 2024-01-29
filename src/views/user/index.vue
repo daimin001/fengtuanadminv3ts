@@ -92,7 +92,7 @@
             <span class="iconfont icon-bianji"></span>
           </el-button>
           <el-button type="success" size="small" @click="handleAssign(scoped.row)">分配角色</el-button>
-          <el-button type="danger" size="small">
+          <el-button type="danger" size="small" @click="handleDel">
             <span class="iconfont icon-shanchu"></span>删除
           </el-button>
         </template>
@@ -123,6 +123,7 @@ import type { FormInstance, FormRules } from 'element-plus'
 import mock from '@/mock/user'
 import UserEdit from './components/userEdit.vue'
 import AssignRole from './components/assignRole.vue'
+import { useConfirm} from '@/hooks/useConfirm'
 
 // 收起&展开
 const isCollapse = ref<boolean>(true)
@@ -207,6 +208,11 @@ const handleAssign = (row: any) => {
   assignRoleRef.value!.formData.role_name = row.role_name
   assignRoleRef.value!.formData.user_id = row.id
   assignRoleRef.value!.formData.role_id = row.role_id
+}
+
+// 删除按钮
+const handleDel = () => {
+  useConfirm()
 }
 
 </script>

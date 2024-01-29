@@ -24,8 +24,8 @@
       </el-button>
     </el-row>
     <!-- 表格 -->
-    <el-table class="qfTable" :data="tableData.data">
-      <el-table-column label="复选" type="selection" width="55" fixed="left" />
+    <el-table class="qfTable" :data="tableData.data" border>
+      <el-table-column label="复选" align="center" type="selection" width="55" fixed="left" />
       <el-table-column label="编号" prop="id" align="center" sortable></el-table-column>
       <el-table-column label="角色名称" prop="role_name" align="center"></el-table-column>
       <el-table-column label="角色描述" prop="role_desc" align="center"></el-table-column>
@@ -37,7 +37,7 @@
             <span class="iconfont icon-bianji"></span>
           </el-button>
           <el-button type="success" size="small" @click="handleAssignAuth(scoped.row)">分配权限</el-button>
-          <el-button type="danger" size="small">
+          <el-button type="danger" size="small" @click="handleDel">
             <span class="iconfont icon-shanchu"></span>
             删除
           </el-button>
@@ -66,6 +66,7 @@ import mock from '@/mock/role'
 import type { FormInstance, FormRules } from 'element-plus'
 import RoleEdit from './components/roleEdit.vue'
 import AssignAuth from './components/assignAuth.vue'
+import { useConfirm} from '@/hooks/useConfirm'
 
 // 表单数据
 const formData = reactive<GetRolePayloadType>({
@@ -126,6 +127,11 @@ const assignAuthRef = ref()
 // 点击分配权限按钮
 const handleAssignAuth = (row: any) => {
   assignAuthRef.value.status = true
+}
+
+// 删除
+const handleDel = () => {
+  useConfirm()
 }
 
 

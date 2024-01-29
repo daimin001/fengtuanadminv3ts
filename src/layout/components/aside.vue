@@ -40,7 +40,7 @@
           </template>
           <!-- 二级菜单 -->
           <template v-for="(item2,index2) in item.children" :key="index2">
-            <el-menu-item :index="`${index}-${index2}`">
+            <el-menu-item :index="`${index}-${index2}`" v-if="item2.type === 1" @click="$router.push(item2.path)">
               <i :class="['iconfont', item2.icon]"></i>
               {{ item2.auth_name }}
             </el-menu-item>
