@@ -51,7 +51,7 @@
 </template>
 
 <script lang="ts" setup>
-import QfBox from '@/components/QfBox/index.vue'
+import QfBox from '@/components/qfBox/index.vue'
 import mock from '@/mock/menu/index'
 import { ref } from 'vue'
 import AuthEdit from '@/views/auth/components/authEdit.vue'

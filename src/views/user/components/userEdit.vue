@@ -32,7 +32,7 @@ import { reactive, ref } from 'vue'
 import type { FormInstance, FormRules } from 'element-plus'
 import { checkMobile } from '@/utils/validate'
 import type { PutUserPayloadType } from '@/api/user/types'
-import QfUpload from '@/components/QfUpload/index.vue'
+import QfUpload from '@/components/qfUpload/index.vue'
 
 // 表单数据
 const formData = reactive<PutUserPayloadType>({

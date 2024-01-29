@@ -59,7 +59,7 @@
 </template>
 
 <script setup lang="ts">
-import QfBox from '@/components/QfBox/index.vue'
+import QfBox from '@/components/qfBox/index.vue'
 import { reactive, ref } from 'vue'
 import type { GetRolePayloadType, GetRoleResType } from '@/api/role/types'
 import mock from '@/mock/role'

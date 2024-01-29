@@ -114,7 +114,7 @@
 </template>
 
 <script lang="ts" setup>
-import QfBox from '@/components/QfBox/index.vue'
+import QfBox from '@/components/qfBox/index.vue'
 import { ArrowDown, ArrowUp } from '@element-plus/icons-vue'
 import type { GetUserPayloadType, GetUserResType } from '@/api/user/types'
 import { reactive, ref } from 'vue'
