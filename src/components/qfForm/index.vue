@@ -11,6 +11,7 @@ import { reactive, ref, watchEffect } from 'vue'
 // - 更精确的属性验证
 // - IDE智能提醒,减少代码低级错误
 type Props = {
+	expand?: boolean
 	inline?: boolean
 	labelWidth: string | number
 	formItem: Form.Item[]
@@ -18,6 +19,7 @@ type Props = {
 	row?: any
 }
 const props = withDefaults(defineProps<Props>(), {
+	expand: false,
 	inline: false,
 	labelWidth: ''
 })
@@ -136,7 +138,7 @@ const isExpand = ref(false)
 			</template>
 
 			<!-- 搜索控件展开收起 -->
-			<el-button v-if="inline" link type="primary" @click="isExpand = !isExpand">
+			<el-button v-if="expand" link type="primary" @click="isExpand = !isExpand">
 				{{ isExpand ? '收起' : '展开' }}
 				<el-icon>
 					<ArrowDown v-if="!isExpand" />

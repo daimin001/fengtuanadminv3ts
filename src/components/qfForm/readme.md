@@ -24,7 +24,7 @@ const formItem: Form.Item[] = [
 
     type: "text",
     placeholder: "请输入用户名",
-    icon: "el-icon-user-solid",
+    icons: "el-icon-user-olid",
     disabled: false,
   },
   {
